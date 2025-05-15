@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const boardRoutes = require("./routes/boardRoutes");
 const voteRoutes = require("./routes/voteRoutes");
+const playerRoutes = require("./routes/playerRoutes");
 const PORT = process.env.PORT || 5000;
 
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/boards", boardRoutes);
 app.use("/api/votes", voteRoutes);
+app.use("/api/players", playerRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI, {
