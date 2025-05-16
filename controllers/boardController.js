@@ -53,19 +53,18 @@ exports.getBoardWithEntries = async (req, res) => {
 };
 
 exports.voteEntry = async (req, res) => {
-  const { entryId, score, playerId } = req.body;
+  const { entryId, score, playerId, comment } = req.body; // ← Add comment
 
-  // Check if vote already exists for this entry and player
   let vote = await Vote.findOne({ entryId, playerId });
 
   if (vote) {
     vote.score = score;
+    vote.comment = comment; // ← Update comment too
     await vote.save();
     return res.json({ message: "Vote updated", vote });
   }
 
-  // If not, create new vote
-  vote = new Vote({ entryId, score, playerId });
+  vote = new Vote({ entryId, score, playerId, comment }); // ← Include comment
   await vote.save();
 
   res.json({ message: "Vote submitted", vote });
