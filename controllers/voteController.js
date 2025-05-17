@@ -19,6 +19,5 @@ exports.getVotesByPlayerAndBoard = async (req, res) => {
       comment: vote?.comment ?? "", // ← Add this
     };
   });
-  console.log("resp", res.json(response));
   res.json(response);
 };

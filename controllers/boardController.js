@@ -59,7 +59,14 @@ exports.voteEntry = async (req, res) => {
 
   if (vote) {
     vote.score = score;
-    vote.comment = comment; // ← Update comment too
+
+    if (
+      comment !== undefined ||
+      (typeof comment === "string" && comment.trim() !== "")
+    ) {
+      vote.comment = comment;
+    }
+
     await vote.save();
     return res.json({ message: "Vote updated", vote });
   }
